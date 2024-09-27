@@ -19,7 +19,13 @@ class DeleteEvento(Resource):
         message = EventoController.cancel_event(self, id, payload=dados)
         return message
     
-    #adicionar um put para cada uma das tabelas para informações pontuais
+class Ordena_eventos_usuario(Resource):
+    def get(self, id):
+        dados = request.get_json()
+        message = EventoController.order_eventos_by_user(self, id)
+        return message
+    
     #criar rota para listagem de eventos por usuário em ordenação por dia
     #criar rota para listagem de usuarios de um evento
-    #criar rota para listar todas as reuniões de uma sala 
+
+    #adicionar um put para cada uma das tabelas para informações pontuais

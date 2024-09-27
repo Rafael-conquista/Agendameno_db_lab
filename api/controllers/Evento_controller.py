@@ -164,4 +164,44 @@ class EventoController:
             return response,200
         except Exception:
             return {'message': 'dados incorretos'}, 500
-        
+    
+    def order_eventos_by_user(self, id):
+        results = banco.session.query(Evento, Sala, Agendamento, Convida) \
+        .join(Sala, Evento.IdSala == Sala.IdSala) \
+        .join(Agendamento, Evento.idAgendamento == Agendamento.IdAgendamento) \
+        .join(Convida, Agendamento.IdAgendamento == Convida.IdAgendamento) \
+        .filter(Convida.IdUsuario == id) \
+        .all()
+
+        response = []
+        for result in results:
+            event_dict = {}
+            event_dict.update({
+                'evento': {
+                    'id_evento': result[0].IdEvento,
+                    'nome': result[0].Nome,
+                    'descricao': result[0].Descricao,
+                    'id_agendamento': result[0].idAgendamento,
+                    'id_sala': result[0].IdSala,
+                    'id_evento_excluido': result[0].IdEventoExcluido
+                },
+                'sala': {
+                    'id_sala': result[1].IdSala,
+                    'nome_sala': result[1].Nome,
+                    'bloco': result[1].Bloco,
+                    'andar': result[1].Andar,
+                },
+                'agendamento': {
+                    'id_agendamento': result[2].IdAgendamento,
+                    'data_inicio': result[2].DataInicio.strftime("%Y-%m-%dT%H:%M:%S"),
+                    'data_final': result[2].DataFinal.strftime("%Y-%m-%dT%H:%M:%S")
+                },
+                'convite': {
+                    'id_convida': result[3].IdConvida,
+                    'importante': result[3].Importante,
+                    'aceito': result[3].Aceito
+                }
+            })
+            response.append(event_dict)
+
+        return response, 200 
