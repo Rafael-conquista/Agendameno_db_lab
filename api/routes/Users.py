@@ -27,3 +27,10 @@ class Users(Resource):
     def get(self):
         message = UserController.get_usuarios(self)
         return message
+    
+
+class UserLogin(Resource):
+    def post(self):
+        dados = request.get_json()
+        message = UserController.login(self, dados)
+        return message

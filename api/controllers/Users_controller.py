@@ -99,4 +99,12 @@ class UserController:
         for result in results:
             usuarios.append(UserController.to_dict(result))
         return usuarios, 200
+    
+    def login(self, dados):
+        usuario = banco.session.query(Usuario).filter(Usuario.Email == dados.get('email')).first()
+        if not usuario:
+            return {"message": 'nenhum usuário encontrado'}, 404
+        if usuario.Senha == dados.get('senha'):
+            return {"login": True}
+        return {"login": False}
         
