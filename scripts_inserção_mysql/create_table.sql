@@ -47,9 +47,11 @@ CREATE TABLE Agendamento (
 CREATE TABLE Convida (
     IdConvida INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     IdUsuario INT NOT NULL,
+    IdAgendamento INT NOT NULL,
     Importante BOOLEAN DEFAULT FALSE NOT NULL,
     Aceito BOOLEAN DEFAULT FALSE NOT NULL,
-    FOREIGN KEY (IdUsuario) REFERENCES Usuario(IdUsuario)
+    FOREIGN KEY (IdUsuario) REFERENCES Usuario(IdUsuario),
+    FOREIGN KEY (IdAgendamento) REFERENCES Agendamento(IdAgendamento)
 );
 
 CREATE TABLE Evento (
