@@ -39,8 +39,8 @@ CREATE TABLE Usuario (
 CREATE TABLE Agendamento (
     IdAgendamento INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     IdUsuario INT NOT NULL,
-    DataInicio Date NOT NULL,
-    DataFinal Date NOT NULL,
+    DataInicio Datetime NOT NULL,
+    DataFinal Datetime NOT NULL,
     FOREIGN KEY (IdUsuario) REFERENCES Usuario(IdUsuario)
 );
 
