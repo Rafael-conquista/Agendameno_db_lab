@@ -12,6 +12,11 @@ class Cargo(Resource):
     def get(self, id):
         message = CargoController.get_cargo(self, id)
         return message
+    
+    def put(self, id):
+        dados = request.get_json()
+        message = CargoController.update_cargo(self, id, dados)
+        return message
 
 class Cargos(Resource):
     def get(self):

@@ -26,7 +26,7 @@ CREATE TABLE EventoExcluido (
 CREATE TABLE Usuario (
     IdUsuario INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     IdCargo INT NOT NULL,
-    IdEquipe INT NOT NULL,
+    IdEquipe INT,
     Nome VARCHAR(100) NOT NULL,
     Telefone VARCHAR(15),
     Email VARCHAR(100) UNIQUE NOT NULL,
@@ -55,7 +55,7 @@ CREATE TABLE Convida (
 CREATE TABLE Evento (
     IdEvento INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     IdSala INT NOT NULL,
-    IdEventoExcluido INT NOT NULL,
+    IdEventoExcluido INT,
     idAgendamento INT NOT NULL,
     Nome VARCHAR(100) NOT NULL,
     Interno BOOLEAN DEFAULT FALSE NOT NULL,
