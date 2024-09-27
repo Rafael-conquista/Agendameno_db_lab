@@ -5,7 +5,7 @@ from routes.Users import User, Users, UserLogin
 from routes.Cargo import Cargo, Cargos
 from routes.Equipe import Equipe, Equipes
 from routes.Sala import Sala, Salas
-from routes.Evento import Evento, DeleteEvento, Ordena_eventos_usuario
+from routes.Evento import Evento, DeleteEvento, Ordena_eventos_usuario, Ordena_usuarios_evento
 from flask_restful import Api
 import os
 
@@ -30,7 +30,7 @@ api.add_resource(Salas, "/salas")
 api.add_resource(Evento, "/evento", "/evento/<int:id>")
 api.add_resource(DeleteEvento, "/cancelar_evento/<int:id>")
 api.add_resource(Ordena_eventos_usuario, "/ordenar_eventos_usuario/<int:id>")
-
+api.add_resource(Ordena_usuarios_evento, "/ordenar_usuario_evento/<int:id>")
 
 if __name__ == '__main__':
     from sql_alchemy import banco

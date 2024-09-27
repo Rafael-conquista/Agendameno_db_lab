@@ -171,6 +171,7 @@ class EventoController:
         .join(Agendamento, Evento.idAgendamento == Agendamento.IdAgendamento) \
         .join(Convida, Agendamento.IdAgendamento == Convida.IdAgendamento) \
         .filter(Convida.IdUsuario == id) \
+        .order_by(Agendamento.DataInicio.desc()) \
         .all()
 
         response = []
@@ -205,3 +206,23 @@ class EventoController:
             response.append(event_dict)
 
         return response, 200 
+    
+    def order_usuarios_by_evento(self, id):
+        results = banco.session.query(Agendamento, Convida) \
+        .join(Convida, Agendamento.IdAgendamento == Convida.IdAgendamento) \
+        .filter(Convida.IdAgendamento == id) \
+        .all()
+
+        response = []
+        for result in results:
+            event_dict = {}
+            event_dict.update(
+                {
+                    'id_usuario': result[1].IdUsuario,
+                    'id_convida': result[1].IdConvida,
+                    'importante': result[1].Importante,
+                    'aceito': result[1].Aceito
+                }
+            )
+            response.append(event_dict)
+        return response, 200
