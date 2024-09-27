@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../../App.css';
 
-function agenda() {
+function Agenda() {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [events, setEvents] = useState({});
@@ -109,4 +109,4 @@ function agenda() {
   );
 }
 
-export default agenda;
+export default Agenda;
