@@ -251,3 +251,17 @@ class EventoController:
         except Exception:
             banco.session.rollback()
             return {'message': 'erro durante atualização'}
+        
+    def convida(self, payload):
+        try:
+            new_convite = Convida(
+                IdUsuario = payload.get('id_usuario'),
+                IdAgendamento = payload.get('id_agendamento'),
+                Importante = payload.get('importante')
+            )
+            banco.session.add(new_convite)
+            banco.session.commit()
+            return {'message': 'atualizado'} 
+        except Exception:
+            banco.session.rollback()
+            return {'message': 'erro durante atualização'}

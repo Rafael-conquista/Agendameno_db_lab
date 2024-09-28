@@ -5,7 +5,7 @@ from routes.Users import User, Users, UserLogin
 from routes.Cargo import Cargo, Cargos
 from routes.Equipe import Equipe, Equipes
 from routes.Sala import Sala, Salas
-from routes.Evento import Evento, DeleteEvento, Ordena_eventos_usuario, Ordena_usuarios_evento, Aceita_convite
+from routes.Evento import Evento, DeleteEvento, Ordena_eventos_usuario, Ordena_usuarios_evento, Aceita_convite, ConvidaUsuarios
 from flask_restful import Api
 import os
 
@@ -32,6 +32,7 @@ api.add_resource(DeleteEvento, "/cancelar_evento/<int:id>")
 api.add_resource(Ordena_eventos_usuario, "/ordenar_eventos_usuario/<int:id>")#id do usuario
 api.add_resource(Ordena_usuarios_evento, "/ordenar_usuario_evento/<int:id>") #id é do agendamento
 api.add_resource(Aceita_convite, "/aceita_convite/<int:id>") #id é do convida
+api.add_resource(ConvidaUsuarios, "/convida") #id é do convida
 
 if __name__ == '__main__':
     from sql_alchemy import banco

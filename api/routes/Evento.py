@@ -39,5 +39,9 @@ class Aceita_convite(Resource):
         dados = request.get_json()
         message = EventoController.atualiza_convite(self, id, dados)
         return message
-
-    # rota para adicionar novos usuários para um evento
+    
+class ConvidaUsuarios(Resource):
+    def post(self):
+        dados = request.get_json()
+        message = EventoController.convida(self, dados)
+        return message
