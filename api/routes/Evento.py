@@ -13,6 +13,11 @@ class Evento(Resource):
         message = EventoController.get_evento(self, id)
         return message
     
+    def put(self, id):
+        dados = request.get_json()
+        message = EventoController.update_evento(self, id, dados)
+        return message
+    
 class DeleteEvento(Resource):
     def post(self, id):
         dados = request.get_json()
@@ -29,4 +34,10 @@ class Ordena_usuarios_evento(Resource):
         message = EventoController.order_usuarios_by_evento(self, id)
         return message
 
-    #adicionar um put para cada uma das tabelas para informações pontuais
+class Aceita_convite(Resource):
+    def put(self, id):
+        dados = request.get_json()
+        message = EventoController.atualiza_convite(self, id, dados)
+        return message
+
+    # rota para adicionar novos usuários para um evento

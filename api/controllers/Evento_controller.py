@@ -226,3 +226,28 @@ class EventoController:
             )
             response.append(event_dict)
         return response, 200
+    
+    def atualiza_convite(self, id, payload):
+        result = banco.session.query(Convida).filter(Convida.IdConvida == id).first()
+        if not result:
+            return {'message': 'não encontrado'}
+        try:
+            result.Aceito = payload.get('aceito', result.Aceito)
+            banco.session.commit()
+            return {'message': 'atualizado'}
+        except Exception:
+            banco.session.rollback()
+            return {'message': 'erro durante atualização'}
+        
+    def update_evento(self, id, payload):
+        result = banco.session.query(Evento).filter(Evento.IdEvento == id).first()
+        if not result:
+            return {'message': 'não encontrado'}
+        try:
+            result.Nome = payload.get('nome', result.Nome)
+            result.Descricao = payload.get('descricao', result.Descricao)
+            banco.session.commit()
+            return {'message': 'atualizado'}
+        except Exception:
+            banco.session.rollback()
+            return {'message': 'erro durante atualização'}
