@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../../App.css';
 
-function agenda() {
+function Agenda() {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [events, setEvents] = useState({});
@@ -80,15 +80,15 @@ function agenda() {
     <div className="App">
       <header className="App-header">
         <navbar>
-          <button href="/pages/usuarios" className='botao-usuario'><span class="material-symbols-outlined"> person</span> Usuários</button>
-          <button className='botao-eventos'><span class="material-symbols-outlined"> calendar_add_on</span> Criar Evento</button>
+          <button className='botao-usuario'><a href='/usuarios'><span className="material-symbols-outlined"> person</span> Usuários</a></button>
+          <button className='botao-eventos'><a href='/CadastroEquipes'><span class="material-symbols-outlined">group_add</span> Equipes</a></button>
         </navbar>
         <section>
           <div className="calendar-container">
             <div className="calendar-header">
-              <button className="nav-button" onClick={prevMonth}><span class="material-symbols-outlined">arrow_left</span></button>
+              <button className="nav-button" onClick={prevMonth}><span className="material-symbols-outlined">arrow_left</span></button>
               <div className="month-year">{`${months[currentMonth]} ${currentYear}`}</div>
-              <button className="nav-button" onClick={nextMonth}><span class="material-symbols-outlined">arrow_right</span></button>
+              <button className="nav-button" onClick={nextMonth}><span className="material-symbols-outlined">arrow_right</span></button>
             </div>
             <div className="weekdays">
               <div>Dom</div>
@@ -109,4 +109,4 @@ function agenda() {
   );
 }
 
-export default agenda;
+export default Agenda;

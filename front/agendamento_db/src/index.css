@@ -2,6 +2,47 @@ body {
   margin: 0px;
 }
 
+a {
+  text-decoration: none;
+  color: white;
+  display: flex;
+  padding: 5px 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+navbar {
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+table {
+  width: 90%;
+  border-collapse: collapse;
+  color: #000;
+  cursor: default;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #fff;
+}
+
+th {
+  background-color: #555;
+  color: white;
+  text-align: center;
+}
+
+td {
+  color: #fff;
+  text-align: center;
+}
+
 .App {
   text-align: center;
 }
@@ -108,27 +149,39 @@ body {
 .botao-usuario, .botao-eventos {
   display: flex;
   align-items: center;
-  position: fixed;
   top: 10px;
   transition: 0.3s;
   font-size: 1.5rem;
   border-radius: 10px;
   border: none;
-  padding: 5px 10px;
   background-color: orange;
   color: white;
   text-shadow: 1px 1px #000;
   cursor: pointer;
+  padding: 0px;
 }
 
 .botao-usuario:hover, .botao-eventos:hover {
   background-color: orangered;
 }
 
-.botao-usuario {
-  left: 10px;
+.editar_equipe {
+  text-align: center;
 }
 
-.botao-eventos {
-  right: 10px;
+.editar_equipe span {
+  transition: 0.3s;
+  padding: 5px;
+  border-radius: 10px;
+  background-color: grey;
+  color: white;
+  cursor: pointer;
+}
+
+.editar_equipe span:hover {
+  transform: scale(1.1);
+}
+
+.editar_equipe span:active {
+  background-color: #555;
 }
