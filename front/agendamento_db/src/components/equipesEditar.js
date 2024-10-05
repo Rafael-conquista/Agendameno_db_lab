@@ -59,29 +59,30 @@ function EquipesEditar() {
           <button className='botao-usuario'><a href='/usuarios'><span className="material-symbols-outlined"> person</span> Usuários</a></button>
           <button className='botao-eventos'><a href='/CadastroEquipes'><span class="material-symbols-outlined">group_add</span> Equipes</a></button>
         </navbar>
-        <h2>Editar Equipe</h2>
-        <form>
-          <div>
-            <p>Nome Equipe</p>
-            <input className='nomeEquipe' placeholder='Nome da Equipe' onChange={nomeEquipeNovoChange}  value={nomeEquipeNovo}></input>
+        <section className='editarEquipeComponent'>
+          <h2>Editar Equipe</h2>
+          <div className='editarEquipe'>
+            <form>
+              <div>
+                <p>Nome Equipe</p>
+                <input className='nomeEquipe' placeholder='Nome da Equipe' onChange={nomeEquipeNovoChange}  value={nomeEquipeNovo}></input>
+                <div className='botoes'>
+                  <button className='editar_equipe button_trash' onClick={salvarInfos}>Salvar <span class="material-symbols-outlined">save</span></button>
+                  { ativo == 1 &&
+                    <div className='editar_equipe'>
+                      <button className='button_trash' onClick={apagarInfos}>Desativar <span class="material-symbols-outlined">delete</span></button>
+                    </div>
+                  }
+                  { ativo == 0 &&
+                    <div className='editar_equipe'>
+                      <button className='button_trash reativeButton' onClick={apagarInfos}>Reativar <span class="material-symbols-outlined">restore_from_trash</span></button>
+                    </div>
+                  }
+                </div>
+              </div>
+            </form>
           </div>
-          { ativo == 1 &&
-          <div className='editar_equipe'>
-            <p>Desativar</p>
-            <button className='button_trash' onClick={apagarInfos}><span class="material-symbols-outlined">delete</span></button>
-          </div>
-          }
-          { ativo == 0 &&
-          <div className='editar_equipe'>
-            <p>Reativar</p>
-            <button className='button_trash' onClick={apagarInfos}><span class="material-symbols-outlined">restore_from_trash</span></button>
-          </div>
-          }
-        </form>
-        <button className='editar_equipe button_trash' onClick={salvarInfos}><span class="material-symbols-outlined">save</span></button>
-        {message != '' &&
-          <p>{message}</p>
-        }
+        </section>
       </header>
     </div>
   );
