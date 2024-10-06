@@ -132,6 +132,7 @@ td {
 
 .day.empty {
   background-color: #222;
+  cursor: default;
 }
 
 .day-header {
