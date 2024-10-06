@@ -172,6 +172,7 @@ class EventoController:
         .join(Agendamento, Evento.idAgendamento == Agendamento.IdAgendamento) \
         .join(Convida, Agendamento.IdAgendamento == Convida.IdAgendamento) \
         .filter(Convida.IdUsuario == id) \
+        .order_by(Agendamento.DataInicio.desc()) \
         .all()
 
         response = []
@@ -206,3 +207,62 @@ class EventoController:
             response.append(event_dict)
 
         return response, 200 
+    
+    def order_usuarios_by_evento(self, id):
+        results = banco.session.query(Agendamento, Convida) \
+        .join(Convida, Agendamento.IdAgendamento == Convida.IdAgendamento) \
+        .filter(Convida.IdAgendamento == id) \
+        .all()
+
+        response = []
+        for result in results:
+            event_dict = {}
+            event_dict.update(
+                {
+                    'id_usuario': result[1].IdUsuario,
+                    'id_convida': result[1].IdConvida,
+                    'importante': result[1].Importante,
+                    'aceito': result[1].Aceito
+                }
+            )
+            response.append(event_dict)
+        return response, 200
+    
+    def atualiza_convite(self, id, payload):
+        result = banco.session.query(Convida).filter(Convida.IdConvida == id).first()
+        if not result:
+            return {'message': 'não encontrado'}
+        try:
+            result.Aceito = payload.get('aceito', result.Aceito)
+            banco.session.commit()
+            return {'message': 'atualizado'}
+        except Exception:
+            banco.session.rollback()
+            return {'message': 'erro durante atualização'}
+        
+    def update_evento(self, id, payload):
+        result = banco.session.query(Evento).filter(Evento.IdEvento == id).first()
+        if not result:
+            return {'message': 'não encontrado'}
+        try:
+            result.Nome = payload.get('nome', result.Nome)
+            result.Descricao = payload.get('descricao', result.Descricao)
+            banco.session.commit()
+            return {'message': 'atualizado'}
+        except Exception:
+            banco.session.rollback()
+            return {'message': 'erro durante atualização'}
+        
+    def convida(self, payload):
+        try:
+            new_convite = Convida(
+                IdUsuario = payload.get('id_usuario'),
+                IdAgendamento = payload.get('id_agendamento'),
+                Importante = payload.get('importante')
+            )
+            banco.session.add(new_convite)
+            banco.session.commit()
+            return {'message': 'atualizado'} 
+        except Exception:
+            banco.session.rollback()
+            return {'message': 'erro durante atualização'}

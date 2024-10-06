@@ -67,7 +67,8 @@ function Agenda() {
     let cells = [];
 
     for (let i = 0; i < firstDay; i++) {
-      cells.push(<div key={`empty-${i}`} className="day empty"></div>);
+      
+      <div key={`empty-${i}`} className="day empty"></div>);
     }
 
     for (let date = 1; date <= daysInMonth; date++) {
@@ -144,7 +145,7 @@ function Agenda() {
       setCurrentMonth(currentMonth + 1);
     }
   };
-
+  
   async function salvarEvento() {
     if (dataInicio >= dataFim) {
       setMessage('Data Início precisa ser maior que data Fim')
@@ -176,13 +177,16 @@ function Agenda() {
         <navbar>
           <button className='botao-usuario'><a href='/usuarios'><span className="material-symbols-outlined"> person</span> Usuários</a></button>
           <button className='botao-eventos'><a href='/Cadastrousuarios'><span class="material-symbols-outlined">group_add</span> usuarios</a></button>
+
         </navbar>
         <section>
           <div className="calendar-container">
             <div className="calendar-header">
+
               <button className="nav-button" onClick={prevMonth}><span className="material-symbols-outlined">arrow_left</span></button>
               <div className="month-year">{`${months[currentMonth]} ${currentYear}`}</div>
               <button className="nav-button" onClick={nextMonth}><span className="material-symbols-outlined">arrow_right</span></button>
+
             </div>
             <div className="weekdays">
               <div>Dom</div>
