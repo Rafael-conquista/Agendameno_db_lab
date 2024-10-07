@@ -1,0 +1,73 @@
+.pag-Usuarios{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #282c34;
+    color: white;
+    flex-direction: column;
+}
+
+table {
+    width: 60vw;
+    border-collapse: collapse;
+    margin: 20px auto;
+  }
+
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+  td:has(Inativo){
+    opacity: 0.6;
+  }
+  th {
+    background-color: #f2f2f2;
+    color: black;
+  }
+
+  .ativo{
+    opacity: 1;
+  }
+  .inativo{
+    opacity: 0.3;
+  }
+
+.botao-add{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  gap: 10px;
+  border-radius: 15px;
+  padding: 10px;
+  font-weight: bolder;
+  background-color: orange;
+  color: white;
+  text-shadow: 1px 1px #000;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+.botao-add:hover{
+  background-color: orangered;
+}
+.editarUsuario{
+  border: none;
+  background-color: transparent;
+  color: white;
+}
+a{
+  text-decoration: none;
+  color: unset;
+}
+
+.Criar-usuarios{
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 8vw;
+}
