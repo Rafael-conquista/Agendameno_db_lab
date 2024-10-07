@@ -1,0 +1,63 @@
+.criarEvento {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: fixed;
+  background-color: #0005;
+  cursor: pointer;
+  z-index: 0;
+}
+
+.criarEventoComponent {
+  cursor: default;
+  color: white;
+  width: 1000px;
+  height: 500px;
+  position: fixed;
+  background: linear-gradient(45deg, black, #1e1e1e);
+  box-shadow: 0 0 10px black;
+  left: calc(50% - 500px);
+  top: calc(50% - 250px);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.day.past {
+  background-color: #555;
+  color: white;
+  cursor: default;
+}
+
+.day.today {
+  background: linear-gradient(45deg, black, #5a5a5a);
+  cursor: pointer;
+}
+
+.day.today:hover {
+  background: rgb(189, 143, 27);
+}
+
+.fecharAgendamento {
+  height: 100%;
+  width: 100%;
+  z-index: 0;
+}
+
+.componentDatas {
+  display: flex;
+}
+
+.datasCriarEvento {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.ComponentCheckBox {
+  display: flex;
+  align-items: baseline;
+}
