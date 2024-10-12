@@ -56,6 +56,13 @@ class EquipeController:
             result.Nome = dados.get('nome', result.Nome)
             result.Ativo = dados.get('ativo', result.Ativo)
             banco.session.commit()
+            for id in dados.get('ids', None):
+                result = banco.session.query(Usuario).filter(Usuario.IdUsuario == id).first()
+                if not result:
+                    return {'message': 'usuário não encontrado'}
+                IdEquipe = result.IdEquipe
+                result.IdEquipe = dados.get('idEquipe', IdEquipe)
+                banco.session.commit()
             return {'message': 'atualizado'}
         except Exception:
             banco.session.rollback()
