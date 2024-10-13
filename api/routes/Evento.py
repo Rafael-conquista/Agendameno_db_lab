@@ -21,7 +21,6 @@ class DeleteEvento(Resource):
     
 class Ordena_eventos_usuario(Resource):
     def get(self, id):
-        dados = request.get_json()
         message = EventoController.order_eventos_by_user(self, id)
         return message
     
