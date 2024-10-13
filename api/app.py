@@ -7,6 +7,7 @@ from routes.Equipe import Equipe, Equipes
 from routes.Sala import Sala, Salas
 from routes.Evento import Evento, DeleteEvento, Ordena_eventos_usuario, Ordena_usuarios_evento, Aceita_convite, ConvidaUsuarios
 from flask_restful import Api
+from flask_cors import CORS
 import os
 
 load_dotenv()
@@ -15,6 +16,8 @@ app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['uri']
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+CORS(app)
 
 api = Api(app)
 
