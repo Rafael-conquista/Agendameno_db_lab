@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../../App.css';
 import '../../components/Style/agendamento.css';
 import { getUsuarios } from '../../services/usuarios_requests.js';
+import { getEventosUsuario } from '../../services/agendamento_usuario_requests.js';
 import { getSalas } from '../../services/salas_requests.js';
 import { postEventos } from '../../services/eventos_requests.js';
 
@@ -19,6 +20,7 @@ function Agenda() {
   const [importante, setImportante] = useState(false);
   const [descricao, setDescricao] = useState('');
   const [usuarios, setUsuarios] = useState([]);
+  const [agendamento, setAgendamento] = useState([]);
   const [usuariosConvidados, setUsuariosConvidados] = useState([]);
   const [salas, setSalas] = useState([]);
   const [salaEscolhida, setSalaEscolhida] = useState(false);
@@ -36,6 +38,21 @@ function Agenda() {
             setVolta(1)
           } else {
             setUsuarios('Sem usuários');
+            setVolta(1)
+          }
+      })
+    }
+  });
+
+  useEffect(() => {
+    if (volta == 0) {
+      getEventosUsuario(4).then((agendamentos) => {
+          if (agendamentos && Array.isArray(agendamentos)) {
+            setAgendamento(agendamentos.agendamento);
+            setVolta(1)
+            console.log(agendamento)
+          } else {
+            setAgendamento('Sem usuários');
             setVolta(1)
           }
       })
@@ -115,6 +132,10 @@ function Agenda() {
     setSalaEscolhida(idSala)
   };
 
+  const removerSala = () => {
+    setSalaEscolhida('')
+  };
+
   const convidarUsuario = (idUsuario) => {
     setUsuariosConvidados(prevUsuariosConvidados => [
         ...prevUsuariosConvidados,
@@ -125,6 +146,7 @@ function Agenda() {
   const fecharPage = () => {
     setCriarEvento(false);
     setSalaEscolhida(false)
+    setMessage(false)
     setUsuariosConvidados([])
   };
 
@@ -170,7 +192,7 @@ function Agenda() {
       setMessage('Erro mortal, contacte o suporte')
     }
   }
-  
+
   return (
     <div className="App">
       <header className="App-header">
@@ -204,84 +226,125 @@ function Agenda() {
               <section className='criarEvento'>
                 <div className='fecharAgendamento' onClick={() => fecharPage()}></div>
                 <div className='criarEventoComponent'>
-                  <div className='componentDatas'>
-                    <div className='datasCriarEvento'>
-                      <label htmlFor='dataInicio'>Data Início</label>
-                      <input 
-                        type='datetime-local' 
-                        value={dataInicio} 
-                        onChange={(e) => setDataInicio(e.target.value)}
-                        id='dataInicio'
-                      />
-                    </div>
-                    <div className='datasCriarEvento'>
-                      <label htmlFor='dataFim'>Data Fim</label>
-                      <input 
-                        type='datetime-local' 
-                        value={dataFim} 
-                        onChange={(e) => setDataFim(e.target.value)}
-                        id='dataFim'
-                      />
-                    </div>
-                  </div>
-                  <div className='ComponentCheckBox'>
-                    <div className='ComponentCheckBox'>
+                  <div className='camposAgendamentos'>
+                    <div className='componentDatas'>
                       <div className='datasCriarEvento'>
-                        <label htmlFor='nomeEvento'>Nome Evento</label>
-                        <input
-                          type='text' 
-                          value={nomeEvento} 
-                          onChange={(e) => setNomeEvento(e.target.value)}
-                          id='nomeEvento'/>
+                        <div class="container_input">
+                          <input 
+                            required="" 
+                            type="datetime-local" 
+                            name="text" 
+                            value={dataInicio} 
+                            class="input_text"
+                            onChange={(e) => setDataInicio(e.target.value)}
+                            />
+                          <label class="label">Data Início</label>
+                        </div>
                       </div>
                       <div className='datasCriarEvento'>
-                        <label htmlFor='descricao'>Descricao</label>
-                        <input
-                          value={descricao} 
-                          onChange={(e) => setDescricao(e.target.value)}
-                          id='descricao'/>
+                        <div class="container_input">
+                          <input 
+                            required="" 
+                            type="datetime-local" 
+                            name="text" 
+                            value={dataFim} 
+                            class="input_text"
+                            onChange={(e) => setDataFim(e.target.value)}
+                            />
+                          <label class="label">Data Fim</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div className='ComponentNomes'>
+                      <div className='datasCriarEvento'>
+                        <div class="container_input">
+                          <input 
+                            required="" 
+                            type="text" 
+                            name="text" 
+                            value={nomeEvento} 
+                            class="input_text"
+                            onChange={(e) => setNomeEvento(e.target.value)}
+                            />
+                          <label class="label">Nome do Evento</label>
+                        </div>
+                      </div>
+                      <div className='datasCriarEvento'>
+                        <div class="container_input">
+                          <input 
+                            required="" 
+                            type="text" 
+                            name="text" 
+                            value={descricao} 
+                            class="input_text"
+                            onChange={(e) => setDescricao(e.target.value)}
+                            />
+                          <label class="label">Descrição</label>
+                        </div>
                       </div>
                     </div>
                     <div className='ComponentCheckBox'>
                       <div className='datasCriarEvento'>
                         <label htmlFor='importante'>Importante</label>
-                        <input
-                          type='checkbox' 
+                        <input 
                           value={importante} 
                           onChange={(e) => importante ? setImportante(false) : setImportante(true)}
-                          id='importante'/>
+                          class="check"
+                          type="checkbox"/>
                       </div>
                       <div className='datasCriarEvento'>
                         <label htmlFor='interno'>Interno</label>
-                        <input
-                          type='checkbox' 
+                        <input 
                           value={interno} 
-                          onChange={(e) => interno ? setInterno(false) : setInterno(true)}
-                          id='interno'/>
+                          onChange={(e) => interno ? setInterno(false) : setInterno(true)} 
+                          class="check"
+                          type="checkbox"/>
                       </div>
                     </div>
+                    <button onClick={() => {salvarEvento()}} class="button">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" height="24" fill="none" class="svg-icon"><g stroke-width="2" stroke-linecap="round" stroke="#fff"><rect y="5" x="4" width="16" rx="2" height="16"></rect><path d="m8 3v4"></path><path d="m16 3v4"></path><path d="m4 11h16"></path></g></svg>
+                      <span class="lable">Salvar</span>
+                    </button>
+                    {message &&
+                      <p>{message}</p>
+                    }
                   </div>
-                  {usuarios.length > 0 ? usuarios
-                  .filter((usuario) => !usuariosConvidados.includes(usuario.idUsuario))
-                  .map((usuario) => (
-                    <div key={usuario.idUsuario}>
-                      <div>{usuario.nome}</div>
-                      <div>{usuario.email}</div>
-                      <button onClick={() => { convidarUsuario(usuario.idUsuario) }}>Convidar</button>
-                    </div>
-                  )) : <></>}
-                  {!salaEscolhida && salas.length > 0 ? salas.map((sala) => (
-                    <div>
-                      <div>{sala.nome}</div>
-                      <div>{sala.bloco}</div>
-                      <div>{sala.andar}</div>
-                      <button onClick={() => {escolherSala(sala.idSala)}}>Marcar nesta sala</button>
-                    </div>
-                  )) : <></>}
-                  <button onClick={() => {salvarEvento()}}>Salvar</button>
-                  {message &&
-                    <p>{message}</p>
-                  }
+                  <div className='camposSalaConvidados'>
+                    {usuarios.length > 0 ? usuarios
+                      .filter((usuario) => !usuariosConvidados.includes(usuario.idUsuario))
+                      .map((usuario) => (
+                        <div class="usuariosAgendamentos card">
+                          <span>{usuario.nome}</span>
+                          <button onClick={() => { convidarUsuario(usuario.idUsuario) }} class="button">
+                           <span class="span"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 23 21" height="21" width="23" class="svg-icon">
+                                                  <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="black" d="M1.97742 19.7776C4.45061 17.1544 7.80838 15.5423 11.5068 15.5423C15.2053 15.5423 18.5631 17.1544 21.0362 19.7776M16.2715 6.54229C16.2715 9.17377 14.1383 11.307 11.5068 11.307C8.87535 11.307 6.74212 9.17377 6.74212 6.54229C6.74212 3.91082 8.87535 1.77759 11.5068 1.77759C14.1383 1.77759 16.2715 3.91082 16.2715 6.54229Z"></path>
+                                              </svg></span>
+                            <span class="lable">Convidar</span>
+                          </button>
+                        </div>
+                    )) : <></>}
+                  </div>
+                  <div className='camposSalaConvidados'>
+                    {!salaEscolhida && salas.length > 0 ? salas.map((sala) => (
+                        <div class="usuariosAgendamentos card">
+                          <span>{sala.nome}, {sala.bloco}, {sala.andar}</span>
+                          <button onClick={() => {escolherSala(sala.idSala)}} class="button">
+                           <span class="span">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" height="24" fill="none" class="svg-icon">
+                              <g stroke-width="2" stroke-linecap="round" stroke="#fff">
+                                <rect y="5" x="4" width="16" rx="2" height="16">
+                                </rect>
+                                <path d="m8 3v4"></path>
+                                <path d="m16 3v4"></path>
+                                <path d="m4 11h16"></path>
+                              </g>
+                            </svg>
+                           </span>
+                            <span class="lable">Reservar</span>
+                          </button>
+                        </div>
+                    )) : <></>}
+                  </div>
                 </div>
               </section>
             )}
