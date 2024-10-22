@@ -34,20 +34,20 @@ class EventoController:
             new_convite = Convida(
                 IdUsuario = user,
                 IdAgendamento = id_agendamento,
-                Importante = payload.get('importante')
+                Importante = payload.get('importante', False)
             )
             banco.session.add(new_convite)
         new_convite = Convida(
                 IdUsuario = payload.get('id_usuario'),
                 IdAgendamento = id_agendamento,
-                Importante = payload.get('importante')
+                Importante = payload.get('importante', False)
             )
         banco.session.add(new_convite)
         banco.session.commit()
 
     def insert_event(self, payload):
         try:
-            campos_obrigatorios = ['id_usuario', 'data_inicio', 'data_final', 'importante', 'id_sala', 'nome', 'ids_convidados']
+            campos_obrigatorios = ['id_usuario', 'data_inicio', 'data_final', 'id_sala', 'nome', 'ids_convidados']
             for campo in campos_obrigatorios:
                 if not payload.get(campo):
                     return {'message': f'O campo {campo} é obrigatório e está faltando ou inválido.'}, 400
