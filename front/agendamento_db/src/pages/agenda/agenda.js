@@ -205,7 +205,6 @@ function Agenda() {
         <section>
           <div className="calendar-container">
             <div className="calendar-header">
-
               <button className="nav-button" onClick={prevMonth}><span className="material-symbols-outlined">arrow_left</span></button>
               <div className="month-year">{`${months[currentMonth]} ${currentYear}`}</div>
               <button className="nav-button" onClick={nextMonth}><span className="material-symbols-outlined">arrow_right</span></button>
