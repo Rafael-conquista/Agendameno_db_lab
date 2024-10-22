@@ -1,0 +1,109 @@
+.Editar-Usuarios{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #282c34;
+    color: white;
+    flex-direction: column;
+}
+
+.edit{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.form-usuario{
+    border: solid 2px;
+    border-radius: 80px;
+    min-height: 50vh;
+    max-height: 70vh;
+    padding: 40px;
+    background-color: white;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+label{
+    margin-top: 30px;
+    margin-right: 10px;
+}
+input{
+    background: none;
+    border: 1px solid;
+    border-radius: 30px;
+    text-align: center;
+}
+
+.BotaoSalvar{
+    background: none;
+    background-color: rgb(59, 170, 59);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    text-align: center;
+    height: 4vh;
+    width: 5vw;
+    margin: 10px;
+}
+
+#opt{
+    background: none;
+    border: 1px solid;
+    text-align: center;
+}
+
+
+.switch-container {
+    display: flex;
+    align-items: center;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 20px;
+    margin-left: 10px; /* Espaçamento entre o rótulo e o switch */
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 15px;
+    width: 15px;
+    left: 4px;
+    bottom: 2.5px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}

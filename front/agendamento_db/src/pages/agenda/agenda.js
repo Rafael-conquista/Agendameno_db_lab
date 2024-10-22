@@ -197,7 +197,8 @@ function Agenda() {
     <div className="App">
       <header className="App-header">
         <navbar>
-          <button className='botao-usuario'><a href='/usuarios'><span className="material-symbols-outlined"> person</span> Usuários</a></button>
+          <button className='botao-usuario'><span class="material-symbols-outlined"> person</span> Usuários</button>
+          <button className='botao-eventos'><span class="material-symbols-outlined"> calendar_add_on</span> Criar Evento</button>
           <button className='botao-eventos'><a href='/Cadastrousuarios'><span class="material-symbols-outlined">group_add</span> usuarios</a></button>
 
         </navbar>
