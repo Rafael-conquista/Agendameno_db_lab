@@ -1,5 +1,6 @@
 from models.models import Evento, Agendamento, Convida, Usuario, Sala, EventoExcluido
 from flask import Flask, jsonify
+from flask_cors import CORS
 from sql_alchemy import banco
 from datetime import datetime
 from sqlalchemy import and_
