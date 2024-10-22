@@ -1,0 +1,300 @@
+.criarEvento {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: fixed;
+  background-color: #0005;
+  cursor: pointer;
+  z-index: 0;
+}
+
+.criarEventoComponent {
+  cursor: default;
+  color: white;
+  width: 1000px;
+  height: 500px;
+  position: fixed;
+  background: linear-gradient(45deg, black, #1e1e1e);
+  box-shadow: 0 0 10px black;
+  left: calc(50% - 500px);
+  top: calc(50% - 250px);
+  z-index: 1;
+  display: flex;
+}
+
+.day.past {
+  background-color: #555;
+  color: white;
+  cursor: default;
+}
+
+.day.today {
+  background: linear-gradient(45deg, black, #5a5a5a);
+  cursor: pointer;
+}
+
+.day.today:hover {
+  background: rgb(189, 143, 27);
+}
+
+.fecharAgendamento {
+  height: 100%;
+  width: 100%;
+  z-index: 0;
+}
+
+.componentDatas {
+  display: flex;
+}
+
+.datasCriarEvento {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-right: 10px;
+}
+
+.ComponentCheckBox {
+  display: flex;
+  align-items: baseline;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 1.3rem;
+}
+
+.camposAgendamentos {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.camposSalaConvidados {
+  width: 15%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 10px;
+  font-size: 1.3rem;
+}
+
+.ComponentNomes {
+  display: flex;
+}
+
+.usuariosAgendamentos {
+  margin: 10px 0px;
+}
+
+.container_input {
+  margin: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  position: relative;
+  color: white;
+}
+
+.container_input .label {
+  font-size: 15px;
+  padding-left: 10px;
+  position: absolute;
+  top: 13px;
+  transition: 0.3s;
+  pointer-events: none;
+}
+
+.input_text {
+  width: 200px;
+  height: 45px;
+  border: none;
+  outline: none;
+  padding: 0px 7px;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 15px;
+  background-color: transparent;
+  box-shadow: 3px 3px 10px rgba(0,0,0,1),
+  -1px -1px 6px rgba(255, 255, 255, 0.4);
+}
+
+.input_text:focus {
+  color: #fff;
+  box-shadow: 3px 3px 10px rgba(0,0,0,1),
+  -1px -1px 6px rgba(255, 255, 255, 0.4),
+  inset 3px 3px 10px rgba(0,0,0,1),
+  inset -1px -1px 6px rgba(255, 255, 255, 0.4);
+}
+
+.input_text:valid ~ .label,
+.input_text:focus ~ .label {
+  transition: 0.3s;
+  padding-left: 2px;
+  transform: translateY(-35px);
+}
+
+
+.input_text:focus {
+  box-shadow: 3px 3px 10px rgba(0,0,0,1),
+  -1px -1px 6px rgba(255, 255, 255, 0.4),
+  inset 3px 3px 10px rgba(0,0,0,1),
+  inset -1px -1px 6px rgba(255, 255, 255, 0.4);
+}
+
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  background-color: #fff;
+  border-radius: 50%;
+  padding: 5px;
+}
+
+.button {
+  transition: 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 9px 12px;
+  gap: 8px;
+  height: 40px;
+  width: 201px;
+  border: none;
+  background: #FF342B;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.lable {
+  line-height: 22px;
+  font-size: 17px;
+  color: #fff;
+  font-family: sans-serif;
+  letter-spacing: 1px;
+}
+
+.button:hover {
+  background: #e52e26;
+}
+
+.check {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  border-radius: 2px;
+  appearance: none;
+  background-color: #bbb;
+  transition: all .3s;
+ }
+ 
+ .check::before {
+  content: '';
+  position: absolute;
+  border: solid #fff;
+  display: block;
+  width: .3em;
+  height: .6em;
+  border-width: 0 .2em .2em 0;
+  z-index: 1;
+  opacity: 0;
+  right: calc(50% - .3em);
+  top: calc(50% - .6em);
+  transform: rotate(0deg);
+  transition: all .3s;
+  transform-origin: center center;
+ }
+ 
+ .check:checked {
+  animation: a .3s ease-in forwards;
+  background-color: rgb(120, 190, 120);
+ }
+ 
+ .check:checked::before {
+  opacity: 1;
+  transform: rotate(405deg);
+ }
+ 
+ @keyframes a {
+  0% {
+   opacity: 1;
+   transform: scale(1) rotateY(0deg);
+  }
+ 
+  50% {
+   opacity: 0;
+   transform: scale(.8) rotateY(180deg);
+  }
+ 
+  100% {
+   opacity: 1;
+   transform: scale(1) rotateY(360deg);
+  }
+ }
+
+ .button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 9px 12px;
+  gap: 8px;
+  height: 45px;
+  width: 150px;
+  border: none;
+  background: rgb(74, 180, 50);
+  border-radius: 50px;
+  cursor: pointer;
+  position: relative;
+}
+
+.lable {
+  line-height: 22px;
+  font-size: 17px;
+  color: #fff;
+  margin-left: 20px;
+  font-family: sans-serif;
+  letter-spacing: 1px;
+}
+
+.button .span {
+  border-radius: 50%;
+  padding: 10px;
+  position: absolute;
+  left: 0;
+}
+
+
+.card {
+  background: #373737;
+  border-radius: 15px;
+ }
+ 
+ .card span {
+  font-weight: 600;
+  color: white;
+  text-align: center;
+  display: block;
+  padding-top: 10px;
+  font-size: 16px;
+ }
+ 
+ .card button {
+  transition: 0.3s;
+  padding: 8px 25px;
+  display: flex;
+  margin-top: 5px !important;
+  border: none;
+  margin-top: 30px;
+  background: #959595;
+  color: white;
+  font-weight: 600;
+  display: flex;
+  border-radius: 10px;
+ }
+ 
+ .card button:hover {
+  background: #534bf3;
+ }
+

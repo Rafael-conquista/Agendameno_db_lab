@@ -1,5 +1,6 @@
 from models.models import Cargo
 from flask import Flask, jsonify
+from flask_cors import CORS
 from sql_alchemy import banco
 
 class CargoController:

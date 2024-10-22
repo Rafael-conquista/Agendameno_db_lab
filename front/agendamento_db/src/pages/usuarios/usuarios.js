@@ -1,86 +1,86 @@
-import React, { useEffect, useState } from 'react';
-import { getUsuarios } from '../../services/usuarios_request';
-import './usuarios.css';
+import React, { useState } from 'react';
 
-function Usuarios() {
+function App() {
+  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
+  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+  const [events, setEvents] = useState({});
 
-  const [User, setUsers] = useState([]);
+  const months = [
+    "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+    "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+  ];
 
-  useEffect(() => {
-    getUsuarios().then((users) => {
-        if (users && Array.isArray(users)) {
-          setUsers(users);
-        } else {
-          setUsers([]);
-        }
-      })
-      .catch(() => {
-        setUsers([]);
-      });
-  }, []);
+  const renderCalendar = () => {
+    const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+    const daysInMonth = 32 - new Date(currentYear, currentMonth, 32).getDate();
+
+    let rows = [];
+    let cells = [];
+
+    for (let i = 0; i < firstDay; i++) {
+      cells.push(<div key={`empty-${i}`} className="day empty"></div>);
+    }
+
+    for (let date = 1; date <= daysInMonth; date++) {
+      const dayKey = `${currentYear}-${currentMonth + 1}-${date}`;
+      cells.push(
+        <div
+          key={dayKey}
+          className="day"
+          onClick={() => handleDayClick(dayKey)}
+        >
+          <div className="day-header">{date}</div>
+          <div className="events">
+            {events[dayKey] && events[dayKey].map((event, idx) => (
+              <div key={idx} className="event">{event}</div>
+            ))}
+          </div>
+        </div>
+      );
+
+      if ((date + firstDay) % 7 === 0 || date === daysInMonth) {
+        rows.push(<div key={date} className="week">{cells}</div>);
+        cells = [];
+      }
+    }
+
+    return rows;
+  };
+
+  const handleDayClick = (dayKey) => {
+    const event = prompt("Adicione um evento:");
+    if (event) {
+      setEvents(prevEvents => ({
+        ...prevEvents,
+        [dayKey]: prevEvents[dayKey] ? [...prevEvents[dayKey], event] : [event]
+      }));
+    }
+  };
+
+  const prevMonth = () => {
+    if (currentMonth === 0) {
+      setCurrentMonth(11);
+      setCurrentYear(currentYear - 1);
+    } else {
+      setCurrentMonth(currentMonth - 1);
+    }
+  };
+
+  const nextMonth = () => {
+    if (currentMonth === 11) {
+      setCurrentMonth(0);
+      setCurrentYear(currentYear + 1);
+    } else {
+      setCurrentMonth(currentMonth + 1);
+    }
+  };
 
   return (
-    <div className="pag-Usuarios">
-      <navbar>
-        <button className='botao-usuario'>
-          <a href='/'><span className="material-symbols-outlined">person</span> Agenda</a>
-        </button>
-        <button className='botao-eventos'>
-          <span className="material-symbols-outlined">calendar_add_on</span> Criar Evento
-        </button>
-      </navbar>
-
-      <div className="Tabela-Usuarios">
-        <h1 style={{ textAlign: 'center' }}>Tabela de usuários</h1>
-
-        <table>
-          <thead>
-            <tr>
-              <th>ID do Usuário</th>
-              <th>ID do Cargo</th>
-              <th>ID da Equipe</th>
-              <th>Nome</th>
-              <th>Telefone</th>
-              <th>Email</th>
-              <th>Cargo</th>
-            </tr>
-          </thead>
-          <tbody>
-            {User.length > 0 ? (
-              User.map((users) => (
-                <tr key={users.idUsuario} className={users.ativo ===1 ? 'ativo':'inativo'}>
-                  <td>{users.idUsuario}</td>
-                  <td>{users.idCargo}</td>
-                  <td>{users.idEquipe}</td>
-                  <td>{users.nome}</td>
-                  <td>{users.telefone}</td>
-                  <td>{users.email}</td>
-                  <td>{users.ativo === 1 ? 'Ativo' : 'Inativo'}</td>
-                  <span className='editar_usuario'>
-                    <a href={`/EditarUsuarios/${users.idUsuario}`}>
-                      <span className="material-symbols-outlined">edit_square</span>
-                    </a>
-                  </span>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="100%" style={{ textAlign: 'center' }}>Nenhum usuário encontrado...</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-        <button className='botao-add'>
-          <a href='/CriarUsuarios'>
-            <span className="material-symbols-outlined">
-              add
-            </span>
-            Criar Usuarios
-          </a>
-        </button>
-      </div>
+    <div className="App">
+      <header className="App-header">
+        
+      </header>
     </div>
   );
 }
-
-export default Usuarios;
+export default App;

@@ -1,6 +1,6 @@
 from models.models import Usuario, Equipe, Cargo
 from sql_alchemy import banco
-
+from flask_cors import CORS
 class UserController:
 
     def to_dict(cargo):
@@ -105,6 +105,6 @@ class UserController:
         if not usuario:
             return {"message": 'nenhum usuário encontrado'}, 404
         if usuario.Senha == dados.get('senha'):
-            return {"login": True}
+            return {"login": True, "idUsuario": usuario.IdUsuario}
         return {"login": False}
         

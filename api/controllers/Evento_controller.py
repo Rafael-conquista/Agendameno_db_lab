@@ -1,5 +1,6 @@
 from models.models import Evento, Agendamento, Convida, Usuario, Sala, EventoExcluido
 from flask import Flask, jsonify
+from flask_cors import CORS
 from sql_alchemy import banco
 from datetime import datetime
 from sqlalchemy import and_
@@ -33,20 +34,20 @@ class EventoController:
             new_convite = Convida(
                 IdUsuario = user,
                 IdAgendamento = id_agendamento,
-                Importante = payload.get('importante')
+                Importante = payload.get('importante', False)
             )
             banco.session.add(new_convite)
         new_convite = Convida(
                 IdUsuario = payload.get('id_usuario'),
                 IdAgendamento = id_agendamento,
-                Importante = payload.get('importante')
+                Importante = payload.get('importante', False)
             )
         banco.session.add(new_convite)
         banco.session.commit()
 
     def insert_event(self, payload):
         try:
-            campos_obrigatorios = ['id_usuario', 'data_inicio', 'data_final', 'importante', 'id_sala', 'nome', 'ids_convidados']
+            campos_obrigatorios = ['id_usuario', 'data_inicio', 'data_final', 'id_sala', 'nome', 'ids_convidados']
             for campo in campos_obrigatorios:
                 if not payload.get(campo):
                     return {'message': f'O campo {campo} é obrigatório e está faltando ou inválido.'}, 400
@@ -226,3 +227,42 @@ class EventoController:
             )
             response.append(event_dict)
         return response, 200
+    
+    def atualiza_convite(self, id, payload):
+        result = banco.session.query(Convida).filter(Convida.IdConvida == id).first()
+        if not result:
+            return {'message': 'não encontrado'}
+        try:
+            result.Aceito = payload.get('aceito', result.Aceito)
+            banco.session.commit()
+            return {'message': 'atualizado'}
+        except Exception:
+            banco.session.rollback()
+            return {'message': 'erro durante atualização'}
+        
+    def update_evento(self, id, payload):
+        result = banco.session.query(Evento).filter(Evento.IdEvento == id).first()
+        if not result:
+            return {'message': 'não encontrado'}
+        try:
+            result.Nome = payload.get('nome', result.Nome)
+            result.Descricao = payload.get('descricao', result.Descricao)
+            banco.session.commit()
+            return {'message': 'atualizado'}
+        except Exception:
+            banco.session.rollback()
+            return {'message': 'erro durante atualização'}
+        
+    def convida(self, payload):
+        try:
+            new_convite = Convida(
+                IdUsuario = payload.get('id_usuario'),
+                IdAgendamento = payload.get('id_agendamento'),
+                Importante = payload.get('importante')
+            )
+            banco.session.add(new_convite)
+            banco.session.commit()
+            return {'message': 'atualizado'} 
+        except Exception:
+            banco.session.rollback()
+            return {'message': 'erro durante atualização'}
