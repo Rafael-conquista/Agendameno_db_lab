@@ -1,4 +1,5 @@
 import { Route, Routes, BrowserRouter } from "react-router-dom";
+import Entrar from "./pages/login/entrar/entrar";
 import React from 'react';
 import Agenda from "./pages/agenda/agenda.js"; 
 import Usuarios from "./pages/usuarios/usuarios.js"; 
@@ -10,6 +11,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/login" element={<Entrar />}></Route>
         <Route path="/" element={<Agenda />}></Route>
         <Route path="/usuarios" element={<Usuarios />}></Route>
         <Route path="/CadastroEquipes" element={<Equipes />}></Route>

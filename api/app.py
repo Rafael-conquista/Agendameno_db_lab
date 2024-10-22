@@ -20,6 +20,8 @@ CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['uri']
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+CORS(app)
+
 api = Api(app)
 
 api.add_resource(User, "/user", "/user/<int:id>")

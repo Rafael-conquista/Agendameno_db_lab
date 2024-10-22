@@ -1,6 +1,6 @@
 from models.models import Usuario, Equipe, Cargo
 from sql_alchemy import banco
-
+from flask_cors import CORS
 class UserController:
 
     def to_dict(cargo):
@@ -64,7 +64,7 @@ class UserController:
             cargo = banco.session.query(Cargo).filter(Cargo.IdCargo == dados.get('idCargo')).first()
             if not cargo:
                 return {'message': 'cargo não encontrada'}, 404
-            import ipdb; ipdb.set_trace()
+            #import ipdb; ipdb.set_trace()
             result.IdCargo = dados.get('idCargo', result.IdCargo)
             result.IdEquipe = dados.get('idEquipe', result.IdEquipe)
             result.Nome = dados.get('nome', result.Nome)
@@ -105,6 +105,6 @@ class UserController:
         if not usuario:
             return {"message": 'nenhum usuário encontrado'}, 404
         if usuario.Senha == dados.get('senha'):
-            return {"login": True}
+            return {"login": True, "idUsuario": usuario.IdUsuario}
         return {"login": False}
         
